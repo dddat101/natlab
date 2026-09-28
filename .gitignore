@@ -1,0 +1,33 @@
+# Local environment configuration
+config.env
+!config.env.example
+
+# Runtime state and generated artifacts
+state/*
+!state/.gitkeep
+logs/*
+!logs/.gitkeep
+*.pid
+*.log
+*.remote
+*.leases
+/pcap
+
+# Packet captures
+captures/*
+!captures/.gitkeep
+*.pcap
+*.pcapng
+
+# Python Virtualenv & Cache
+.venv/
+__pycache__/
+*.pyc
+
+# Editor & OS files
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

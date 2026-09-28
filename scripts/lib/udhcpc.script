@@ -1,0 +1,19 @@
+#!/bin/sh
+# ==============================================================================
+# Namespace-Safe udhcpc event script
+# Binds IP and default route inside netns without touching host /etc/resolv.conf
+# ==============================================================================
+set -eu
+
+case "${1:-}" in
+    bound|renew)
+        ip -4 addr flush dev "${interface}" 2>/dev/null || true
+        ip -4 addr add "${ip}/${prefix:-24}" dev "${interface}" 2>/dev/null || true
+        if [ -n "${router:-}" ]; then
+            ip -4 route add default via "${router%% *}" dev "${interface}" 2>/dev/null || true
+        fi
+        ;;
+    deconfig)
+        ip -4 addr flush dev "${interface}" 2>/dev/null || true
+        ;;
+esac
